@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "webpack-dev-server",
-    "build": "webpack"
+    "dev": "webpack"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,8 @@
     "html-webpack-plugin": "^3.0.6",
     "html-withimg-loader": "^0.1.16",
     "jquery": "^3.3.1",
+    "less": "^3.0.1",
+    "less-loader": "^4.1.0",
     "style-loader": "^0.20.3",
     "url-loader": "^1.0.1",
     "webpack": "^3.6.0"
