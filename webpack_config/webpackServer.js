@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -40,40 +41,45 @@ module.exports = {
                     }
                 )
             },
-            {
-                test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 50000,
-                            name:'[name].[ext]',
-                            outputPath:'/img/',
-                            publicPath:'http://127.0.0.1:8002/img/'
-                        }
+        {
+            test: /\.(png|jpg|gif)$/,
+            use: [
+                {
+                    loader: 'url-loader',
+                    options: {
+                        limit: 1,
+                        name:'[name]_[hash:6].[ext]',
+                        outputPath:'/img/',
+                        publicPath:'http://127.0.0.1:8002/img/'
                     }
-                ]
-            },
-            {
-                test: /\.js$/,
-                use: [{
-                loader: 'babel-loader',
-                options: {
-                    presets: ['es2015']
                 }
-                }],
-                exclude: /node_modules/, 
-                
-            },
-            {
-                test: /\.html$/,
-                use: ['html-withimg-loader']
-            }
+            ]
+        },
+        {
+            test: /\.js$/,
+            use: [{
+              loader: 'babel-loader',
+              options: {
+                 presets: ['es2015']
+              }
+            }],
+            exclude: /node_modules/, 
+            
+        },
+        {
+            test: /\.html$/,
+            use: ['html-withimg-loader']
+        }
         ]
     },
     plugins:[
         new webpack.ProvidePlugin({
             $:'jquery'
+        }),
+        new UglifyJSPlugin({
+            test: /\.js$/,
+            exclude: /node_modules/,
+            sourceMap:true
         }),
         new HtmlWebpackPlugin({
             minify:{
@@ -96,14 +102,8 @@ module.exports = {
         new ExtractTextPlugin("./css/[name].css"),
     ],
     devServer:{
-        contentBase:path.resolve(__dirname,'./app/'), //服务器根路径
-        proxy: {
-            '/api': {// '/api':匹配项
-              target: 'http://112.126.91.237:8888',// 接口的域名
-              changeOrigin: true,// 如果接口跨域，需要进行这个参数配置
-            }
-        },
-        host:'cdc.canfreee.com', //ip
+        contentBase:path.resolve(__dirname,'./output/'), //服务器根路径
+        host:'127.0.0.1', //ip
         compress:true, // 服务端压缩
         port:'8002' // 端口
     }
