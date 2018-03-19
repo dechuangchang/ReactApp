@@ -37,7 +37,7 @@
 
 * {
   margin: 0px;
-  background: url(../img/w.jpg) no-repeat;
+  background: url(http://127.0.0.1:8002/img/w.jpg) no-repeat;
 }
 body {
   color: red;

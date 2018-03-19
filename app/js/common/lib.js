@@ -1,17 +1,13 @@
-var url = require('../../img/u.jpg')
-console.log(111)
-function getCurrentUser() {
-    $.ajax({
-        url: '/api/user/current',
-        method: 'GET',
-        data: {
-            client_type: 0
-        },
-        success: function (rep) {
-            console.log(rep)
+import React, { Component } from 'react';
+import ReactDom from 'react-dom';
+import Calendar from 'antd/lib/calendar';
+
+class App extends Component {
+    render() {
+        function onPanelChange(value, mode) {
+            console.log(value, mode);
         }
-    });
+        return <Calendar onPanelChange={onPanelChange} />
+    }
 }
-getCurrentUser()
-window.document.getElementById('app').innerHTML='<img src='+url+'></img>';
-window.document.getElementById('app').innerHTML+='<div class="icon iconfont icon-shoucanggaojing"></div>';
+module.exports = App;

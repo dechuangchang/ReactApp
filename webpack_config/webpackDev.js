@@ -9,7 +9,7 @@ var entry = {
     admin:'./app/js/admin.js',
     jquery: "jquery"
 }
-
+console.log('dev')
 module.exports = {
     entry:entry,//入口
     output:{
@@ -39,7 +39,7 @@ module.exports = {
                 )
             },
             {
-                test: /\.(gif|jpg|png)\??.*$/,
+                test: /\.(gif|jpg|png)$/,
                 use: [
                     {
                         loader: 'url-loader',
@@ -53,7 +53,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(woff|svg|eot|ttf)\??.*$/,
+                test: /\.(woff|svg|eot|ttf)$/,
                 use: [
                     {
                         loader: 'url-loader',
@@ -69,12 +69,11 @@ module.exports = {
             {
                 test: /\.js$/,
                 use: [{
-                loader: 'babel-loader',
-                options: {
-                    presets: ['es2015']
-                }
-                }],
-                exclude: /node_modules/, 
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['es2015','react']
+                    }
+                }]
                 
             },
             {

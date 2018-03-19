@@ -1,3 +1,4 @@
+
 const path = require('path');
 const webpack = require('webpack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
@@ -9,6 +10,7 @@ var entry = {
     admin:'./app/js/admin.js',
     jquery: "jquery"
 }
+console.log('server')
 module.exports = {
     devtool: "source-map",
     entry:entry,//入口
@@ -31,7 +33,7 @@ module.exports = {
                     {
                         use:[{
                             loader: "css-loader" ,
-                            options: { sourceMap: true, importLoaders: 1 }
+                            options: { sourceMap: true}
                         }, {
                             loader: "less-loader" ,
                             options: { sourceMap: true }
@@ -48,7 +50,7 @@ module.exports = {
                         options: {
                             limit: 1,
                             name:'[name].[ext]',
-                            outputPath:'/img/',
+                            outputPath: path.resolve(__dirname,'./app/img/'),
                             publicPath:'http://cdc.canfreee.com:8002/img/'
                         }
                     }
@@ -62,7 +64,7 @@ module.exports = {
                         options: {
                             limit: 50000,
                             name:'[name].[ext]',
-                            outputPath:'/iconfont/',
+                            outputPath: path.resolve(__dirname,'./app/img/'),
                             publicPath:'http://cdc.canfreee.com:8002/iconfont/'
                         }
                     }
@@ -73,7 +75,10 @@ module.exports = {
                 use: [{
                 loader: 'babel-loader',
                 options: {
-                    presets: ['es2015']
+                    presets: ['es2015','react'],
+                    "plugins": [
+                        ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": true }] // `style: true` 会加载 less 文件
+                    ]
                 }
                 }],
                 exclude: /node_modules/, 
@@ -108,6 +113,11 @@ module.exports = {
             template:'./app/admin.html'
         }),
         new ExtractTextPlugin("./css/[name].css"),
+        new webpack.DefinePlugin({
+            'process.env': {
+              'NODE_ENV': '"production"'
+            }
+        })
     ],
     devServer:{
         contentBase:path.resolve(__dirname,'./app/'), //服务器根路径
