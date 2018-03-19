@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "webpack-dev-server",
-    "dev": "webpack"
+    "server": "set order=server&webpack-dev-server",
+    "dev": "set order=dev&webpack"
   },
   "keywords": [],
   "author": "",

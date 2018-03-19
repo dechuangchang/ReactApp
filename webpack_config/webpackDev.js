@@ -9,12 +9,12 @@ var entry = {
     admin:'./app/js/admin.js',
     jquery: "jquery"
 }
+
 module.exports = {
-    devtool: "source-map",
     entry:entry,//入口
     output:{
-        path:path.resolve(__dirname,'./app'),//输出真是硬盘位置
-        filename:'./js/[name].js'
+        path:path.resolve(__dirname,'../output'),//输出真是硬盘位置
+        filename:'./js/[name].js', 
     },
     module:{
         rules: [
@@ -30,40 +30,38 @@ module.exports = {
                 use: ExtractTextPlugin.extract(
                     {
                         use:[{
-                            loader: "css-loader" ,
-                            options: { sourceMap: true, importLoaders: 1 }
+                            loader: "css-loader" 
                         }, {
-                            loader: "less-loader" ,
-                            options: { sourceMap: true }
+                            loader: "less-loader"
                         }],
                         fallback: "style-loader"
                     }
                 )
             },
             {
-                test: /\.(png|jpg|gif)$/,
+                test: /\.(gif|jpg|png)\??.*$/,
                 use: [
                     {
                         loader: 'url-loader',
                         options: {
-                            limit: 1,
+                            limit: 5000,
                             name:'[name].[ext]',
-                            outputPath:'/img/',
-                            publicPath:'http://cdc.canfreee.com:8002/img/'
+                            outputPath:'./img/',
+                            publicPath:'http://127.0.0.1:8002/img/'
                         }
                     }
                 ]
             },
             {
-                test: /\.(woff|svg|eot|ttf)$/,
+                test: /\.(woff|svg|eot|ttf)\??.*$/,
                 use: [
                     {
                         loader: 'url-loader',
                         options: {
                             limit: 50000,
                             name:'[name].[ext]',
-                            outputPath:'/iconfont/',
-                            publicPath:'http://cdc.canfreee.com:8002/iconfont/'
+                            outputPath:'./iconfont/',
+                            publicPath:'http://127.0.0.1:8002/iconfont/'
                         }
                     }
                 ]
@@ -89,6 +87,7 @@ module.exports = {
         new webpack.ProvidePlugin({
             $:'jquery'
         }),
+        new UglifyJSPlugin(),
         new HtmlWebpackPlugin({
             minify:{
                 removeAttributeQuotes:true
@@ -108,17 +107,5 @@ module.exports = {
             template:'./app/admin.html'
         }),
         new ExtractTextPlugin("./css/[name].css"),
-    ],
-    devServer:{
-        contentBase:path.resolve(__dirname,'./app/'), //服务器根路径
-        proxy: {
-            '/api': {// '/api':匹配项
-              target: 'http://112.126.91.237:8888',// 接口的域名
-              changeOrigin: true,// 如果接口跨域，需要进行这个参数配置
-            }
-        },
-        host:'cdc.canfreee.com', //ip
-        compress:true, // 服务端压缩
-        port:'8002' // 端口
-    }
+    ]
 }
