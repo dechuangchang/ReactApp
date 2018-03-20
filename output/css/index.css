@@ -21251,9 +21251,9 @@ li.ant-tree-treenode-disabled > .ant-tree-node-content-wrapper:hover {
   background: url(http://127.0.0.1:8002/img/w.jpg) no-repeat;
 }
 body {
-  color: red;
-  background: yellow;
+  color: #fff;
+  background: #fff;
 }
 body div {
-  border: 10px solid red;
+  border: 1px solid red;
 }

@@ -36,7 +36,7 @@ module.exports = {
                             options: { sourceMap: true}
                         }, {
                             loader: "less-loader" ,
-                            options: { sourceMap: true }
+                            options: { sourceMap: true,javascriptEnabled: true}
                         }],
                         fallback: "style-loader"
                     }

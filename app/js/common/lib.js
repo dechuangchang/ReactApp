@@ -7,7 +7,9 @@ class App extends Component {
         function onPanelChange(value, mode) {
             console.log(value, mode);
         }
-        return <Calendar onPanelChange={onPanelChange} />
+        return <div>
+            <Calendar onPanelChange={onPanelChange} />
+        </div>
     }
 }
-module.exports = App;
+export default  App

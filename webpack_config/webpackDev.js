@@ -5,13 +5,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 var entry = {
-    index:'./app/js/index.js',
-    admin:'./app/js/admin.js',
-    jquery: "jquery"
+    'index':'./app/js/index.js',
+    'admin':'./app/js/admin.js',
+    'jquery': "jquery"
 }
 console.log('dev')
 module.exports = {
     entry:entry,//入口
+   
     output:{
         path:path.resolve(__dirname,'../output'),//输出真是硬盘位置
         filename:'./js/[name].js', 
@@ -32,7 +33,8 @@ module.exports = {
                         use:[{
                             loader: "css-loader" 
                         }, {
-                            loader: "less-loader"
+                            loader: "less-loader",
+                            options: {javascriptEnabled: true}
                         }],
                         fallback: "style-loader"
                     }
@@ -93,7 +95,7 @@ module.exports = {
             },
             hash:true,
             filename: 'index.html',
-            chunks: ['index','jquery'],
+            chunks: ['jquery','index'],
             template:'./app/index.html'
         }),
         new HtmlWebpackPlugin({
@@ -102,7 +104,7 @@ module.exports = {
             },
             hash:true,
             filename: 'admin.html',
-            chunks: ['admin','jquery'],
+            chunks: ['jquery','admin'],
             template:'./app/admin.html'
         }),
         new ExtractTextPlugin("./css/[name].css"),

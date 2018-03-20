@@ -28,6 +28,7 @@
     "less-loader": "^4.1.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-hot-loader": "^4.0.0",
     "style-loader": "^0.20.3",
     "transform-runtime": "^0.0.0",
     "url-loader": "^1.0.1",
